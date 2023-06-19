@@ -26,16 +26,20 @@ const addUser = async (name, email, password) => {
 }
 
 const editUser = async (email, name, password) => {
-    let hashedPassword;
-    if (password) {
-        hashedPassword = await bcrypt.hash(password, 10);
-    }
+    try {
+        let hashedPassword;
+        if (password) {
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
 
-    return User.findOneAndUpdate(
-        { email }, 
-        hashedPassword ? 
-            { name: name, password: hashedPassword } : {name}
-    );
+        return User.findOneAndUpdate(
+            { email }, 
+            hashedPassword ? 
+                { name: name, password: hashedPassword } : {name}
+        );
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = {
