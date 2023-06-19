@@ -16,6 +16,6 @@ router.delete("/groups/:id", auth, groupController.deleteGroup);
 router.patch("/groups/:id", auth, groupController.addGroupMember);
 
 router.post("/messages", auth, messageController.createMessage);
-router.patch("/messages/like", messageController.likeMessage);
+router.patch("/messages/like", auth, messageController.likeMessage);
 
 module.exports = router;
