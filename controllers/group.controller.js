@@ -26,7 +26,8 @@ const createGroup = async (req, res) => {
 const deleteGroup = async (req, res) => {
     try {
         const groupId = req.params.id;
-        await removeGroup(groupId);
+        const group = await removeGroup(groupId);
+        if (!group) response.status(404).json({message: "No item found"});
         res.status(200).json({success: true});
     } catch (error) {
         console.log(error);
