@@ -5,17 +5,55 @@ const groupController = require("./controllers/group.controller");
 const messageController = require("./controllers/message.controller");
 const auth = require("./middlewares/auth");
 const isAdmin = require("./middlewares/isadmin");
+const {
+  createUserValidation,
+  updateUserValidation,
+  loginUserValidation
+} = require("./validations/user.validation");
+const {
+  createMessageValidation,
+  likeMessageValidation,
+} = require("./validations/message.validation");
+const { groupMemberValidation } = require("./validations/group.validation"); 
 
-router.post("/users", auth, isAdmin, userController.createUser)
-router.put("/users", auth, isAdmin, userController.updateUser);
-router.post("/users/login", userController.loginUser);
+router.post(
+  "/users",
+  auth,
+  isAdmin,
+  createUserValidation,
+  userController.createUser
+);
+router.put(
+  "/users",
+  auth,
+  isAdmin,
+  updateUserValidation,
+  userController.updateUser
+);
+router.post("/users/login", loginUserValidation, userController.loginUser);
 
-router.get("/groups", auth,  groupController.groupsList);
+router.get("/groups", auth, groupController.groupsList);
 router.post("/groups", auth, groupController.createGroup);
 router.delete("/groups/:id", auth, groupController.deleteGroup);
-router.patch("/groups/:id", auth, groupController.addGroupMember);
+router.patch("/groups/add-member/:id", auth, groupMemberValidation, groupController.addGroupMember);
+router.patch("/groups/remove-member/:id", auth, groupMemberValidation, groupController.removeGroupMember);
 
-router.post("/messages", auth, messageController.createMessage);
-router.patch("/messages/like", auth, messageController.likeMessage);
+router.get(
+  "/messages/:groupId",
+  auth,
+  messageController.getMessages
+)
+router.post(
+  "/messages",
+  auth,
+  createMessageValidation,
+  messageController.createMessage
+);
+router.patch(
+  "/messages/like",
+  auth,
+  likeMessageValidation,
+  messageController.likeMessage
+);
 
 module.exports = router;

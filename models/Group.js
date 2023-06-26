@@ -3,7 +3,10 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema({
     name: String,
     users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-})
+}, 
+{
+    timestamps: true
+});
 
 schema.statics.deleteById = function(_id) {
     return this.deleteOne({ _id: _id })

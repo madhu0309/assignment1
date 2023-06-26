@@ -5,6 +5,10 @@ const findUser = async (email) => {
     return User.findOne({ email: email })
 }
 
+const findUserById = async (id) => {
+    return User.findById(id);
+}
+
 const addUser = async (name, email, password) => {
     try {
         const existingUser = await User.findOne({email: email});
@@ -45,5 +49,6 @@ const editUser = async (email, name, password) => {
 module.exports = {
     addUser,
     editUser,
-    findUser
+    findUser,
+    findUserById
 }
