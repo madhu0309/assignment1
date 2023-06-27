@@ -16,7 +16,6 @@ const user1 = {
 };
 
 const addUsers = async () => {
-  // await addUser(user1.name, user1.password, user1.password);
   await addAdminUser(adminUser.name, adminUser.email, adminUser.password);
 };
 

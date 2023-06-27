@@ -35,7 +35,7 @@ const addAdminUser = async (name, email, password) => {
     await addUser(name, email, password);
     const user = await User.findOne({ email: email });
     user.role = "admin";
-    return user.save;
+    return user.save();
   } catch (error) {
     console.log(error);
   }
