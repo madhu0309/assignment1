@@ -1,13 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
 var cookieParser = require('cookie-parser')
-const routes = require("./routes");
+const userRoutes = require("./routes/user.route");
+const messageRoutes = require("./routes/message.route");
+const groupRoutes = require("./routes/group.route");
 const { MONGO_URL } = require("./config");
 
 const app = express();
 app.use(cookieParser())
 app.use(express.json());
-app.use("/api", routes);
+app.use("/api", userRoutes);
+app.use("/api", groupRoutes);
+app.use("/api", messageRoutes);
 
 // database connection
 mongoose.Promise=global.Promise;
