@@ -24,7 +24,7 @@ const groupsList = async (req, res) => {
 const createGroup = async (req, res) => {
   try {
     const { name } = req.body;
-    const userId = req.userId;
+    const userId = req.user?.id;
     const group = await addGroup(name, userId);
     res.status(201).json({ success: true, data: group });
   } catch (error) {

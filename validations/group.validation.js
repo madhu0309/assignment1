@@ -1,7 +1,8 @@
 const { body } = require("express-validator");
+const mongoose = require('mongoose');
 
 const groupMemberValidation = [
-  body("userId").notEmpty().isMongoId().withMessage("Invalid id"),
+  body("userId").customSanitizer((value) => new mongoose.Types.ObjectId(value)),
 ];
 
 

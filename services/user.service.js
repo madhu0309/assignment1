@@ -30,6 +30,17 @@ const addUser = async (name, email, password) => {
   }
 };
 
+const addAdminUser = async (name, email, password) => {
+  try {
+    await addUser(name, email, password);
+    const user = await User.findOne({ email: email });
+    user.role = "admin";
+    return user.save;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const editUser = async (email, name, password) => {
   try {
     let hashedPassword;
@@ -63,4 +74,5 @@ module.exports = {
   findUser,
   findUserById,
   deleteToken,
+  addAdminUser,
 };

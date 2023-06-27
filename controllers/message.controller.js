@@ -8,7 +8,7 @@ const { validationResult } = require("express-validator");
 
 const getMessages = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.user?.id;
     const groupId = req.params.id;
     const messages = await findMessages(userId, groupId);
     res.status(200).json({ success: true, data: messages });
@@ -31,7 +31,7 @@ const createMessage = async (req, res) => {
       });
     }
     const { message, groupId } = req.body;
-    const userId = req.userId;
+    const userId = req.user?.id;
 
     const group = getGroup(groupId);
     if (!group) {
@@ -61,7 +61,7 @@ const likeMessage = async (req, res) => {
       });
     }
     const { messageId } = req.body;
-    const userId = req.userId;
+    const userId = req.user?.id;
     const msg = await addLike(messageId, userId);
     res.status(200).json({ success: true, data: msg });
   } catch (error) {

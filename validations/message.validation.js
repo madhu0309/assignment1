@@ -1,4 +1,5 @@
 const { body } = require("express-validator");
+const mongoose = require('mongoose');
 
 const createMessageValidation = [
   body("message")
@@ -6,11 +7,11 @@ const createMessageValidation = [
     .trim()
     .isString()
     .withMessage("Message must not be empty"),
-  body("groupId").notEmpty().isMongoId(),
+  body("groupId").customSanitizer((value) => new mongoose.Types.ObjectId(value)),
 ];
 
 const likeMessageValidation = [
-  body("messageId").notEmpty().isMongoId(),
+  body("messageId").customSanitizer((value) => new mongoose.Types.ObjectId(value)),
 ];
 
 module.exports = {

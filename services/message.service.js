@@ -11,6 +11,7 @@ const findMessages = async (userId, groupId) => {
 
 const addMessage = async (message, userId, groupId) => {
   try {
+    
     const msg = new Message({
       message: message,
       userId: userId,
