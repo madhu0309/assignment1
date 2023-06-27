@@ -2,7 +2,7 @@ const Group = require("../models/Group");
 
 const getGroup = async (groupId) => {
   try {
-    return Group.findOne(groupId);
+    return Group.findById(groupId);
   } catch (error) {
     console.log(error);
   }

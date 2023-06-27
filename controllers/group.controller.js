@@ -4,8 +4,10 @@ const {
   removeGroup,
   addMember,
   removeMember,
+  getGroup
 } = require("../services/group.service");
 const { validationResult } = require("express-validator");
+const { findUserById } = require("../services/user.service");
 
 const groupsList = async (req, res) => {
   try {
@@ -67,6 +69,20 @@ const addGroupMember = async (req, res) => {
     }
     const { userId } = req.body;
     const groupId = req.params.id;
+    const user = await findUserById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    const group = await getGroup(groupId);
+    if (!group) {
+      return res.status(404).json({
+        success: false,
+        message: "Group not found",
+      });
+    }
     await addMember(userId, groupId);
     res.status(200).json({ success: true });
   } catch (error) {
@@ -89,6 +105,20 @@ const removeGroupMember = async (req, res) => {
     }
     const { userId } = req.body;
     const groupId = req.params.id;
+    const user = await findUserById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    const group = await getGroup(groupId);
+    if (!group) {
+      return res.status(404).json({
+        success: false,
+        message: "Group not found",
+      });
+    }
     await removeMember(userId, groupId);
     res.status(200).json({ success: true });
   } catch (error) {
@@ -105,5 +135,5 @@ module.exports = {
   createGroup,
   deleteGroup,
   addGroupMember,
-  removeGroupMember
+  removeGroupMember,
 };
