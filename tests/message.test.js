@@ -8,6 +8,7 @@ const { addGroup } = require("../services/group.service");
 const group1 = {
   name: "TestGroup",
 };
+var groupId = "";
 
 const msg1 = {
   message: "Hi, How are you?",
@@ -38,6 +39,7 @@ const addDBData = async () => {
   const message = await addMessage(msg1.message, user.id, group.id);
   msg1Id = message.id;
   msg1["groupId"] = group.id;
+  groupId = group.id;
 };
 
 describe("Test Message API's", () => {
@@ -65,6 +67,19 @@ describe("Test Message API's", () => {
       .send(msg1)
       .then((response) => {
         expect(response.statusCode).toBe(201);
+        expect(response.body.success).toBe(true);
+        done();
+      });
+  });
+
+  test("It should response the get messages", (done) => {
+    request(app)
+      .get(`/api/messages/${groupId}`)
+      .set('Cookie', [
+        `auth=${token}`, 
+      ])
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
         expect(response.body.success).toBe(true);
         done();
       });

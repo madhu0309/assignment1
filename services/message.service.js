@@ -1,8 +1,8 @@
 const Message = require("../models/Message");
 
-const findMessages = async (userId, groupId) => {
+const findMessages = async (groupId) => {
   try {
-    return Message.find({ userId: userId, groupId: groupId });
+    return Message.find({ groupId: groupId });
   } catch (error) {
     console.log(error);
   }

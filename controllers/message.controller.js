@@ -8,9 +8,8 @@ const { validationResult } = require("express-validator");
 
 const getMessages = async (req, res) => {
   try {
-    const userId = req.user?.id;
     const groupId = req.params.id;
-    const messages = await findMessages(userId, groupId);
+    const messages = await findMessages(groupId);
     res.status(200).json({ success: true, data: messages });
   } catch (error) {
     console.log(error);
