@@ -1,6 +1,7 @@
 const {
   addMessage,
   addLike,
+  unLike,
   findMessages,
 } = require("../services/message.service");
 const { getGroup } = require("../services/group.service");
@@ -72,8 +73,31 @@ const likeMessage = async (req, res) => {
   }
 };
 
+const unLikeMessage = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array(),
+      });
+    }
+    const { messageId } = req.body;
+    const userId = req.user?.id;
+    const msg = await unLike(messageId, userId);
+    res.status(200).json({ success: true, data: msg });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   getMessages,
   createMessage,
   likeMessage,
+  unLikeMessage
 };

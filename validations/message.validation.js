@@ -14,7 +14,12 @@ const likeMessageValidation = [
   body("messageId").customSanitizer((value) => new mongoose.Types.ObjectId(value)),
 ];
 
+const unLikeMessageValidation = [
+  body("messageId").customSanitizer((value) => new mongoose.Types.ObjectId(value)),
+];
+
 module.exports = {
   createMessageValidation,
   likeMessageValidation,
+  unLikeMessageValidation
 };

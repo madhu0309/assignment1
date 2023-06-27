@@ -2,6 +2,7 @@ const express = require("express");
 const {
   createMessageValidation,
   likeMessageValidation,
+  unLikeMessageValidation
 } = require("../validations/message.validation");
 const messageController = require("../controllers/message.controller");
 const auth = require("../middlewares/auth");
@@ -19,6 +20,12 @@ router.patch(
   auth,
   likeMessageValidation,
   messageController.likeMessage
+);
+router.patch(
+  "/messages/unlike",
+  auth,
+  unLikeMessageValidation,
+  messageController.unLikeMessage
 );
 
 module.exports = router;

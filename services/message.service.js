@@ -42,8 +42,28 @@ const addLike = async (messageId, userId) => {
   }
 };
 
+const unLike = async (messageId, userId) => {
+  try {
+    const message = await Message.updateOne(
+      {
+        _id: messageId,
+      },
+      {
+        $pull: {
+          likes: userId,
+        },
+      }
+    ).lean();
+
+    return message;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   findMessages,
   addMessage,
   addLike,
+  unLike
 };

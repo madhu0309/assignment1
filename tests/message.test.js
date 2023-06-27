@@ -98,4 +98,18 @@ describe("Test Message API's", () => {
         done();
       });
   });
+
+  test("It should response the unLike message", (done) => {
+    request(app)
+      .patch(`/api/messages/unlike`)
+      .set('Cookie', [
+        `auth=${token}`, 
+      ])
+      .send({ messageId: msg1Id })
+      .then((response) => {
+        expect(response.statusCode).toBe(200);
+        expect(response.body.success).toBe(true);
+        done();
+      });
+  });
 });
