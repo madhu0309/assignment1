@@ -25,11 +25,18 @@ const addMessage = async (message, userId, groupId) => {
 
 const addLike = async (messageId, userId) => {
   try {
-    const msg = await Message.findOne({ _id: messageId });
-    if (msg) {
-      msg.likes.push(userId);
-    }
-    return msg.save();
+    const message = await Message.updateOne(
+      {
+        _id: messageId,
+      },
+      {
+        $addToSet: {
+          likes: userId,
+        },
+      }
+    ).lean();
+
+    return message;
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,4 @@
-const { body, check } = require("express-validator");
-var mongoose = require("mongoose");
+const { body } = require("express-validator");
 
 const groupMemberValidation = [
   body("userId").notEmpty().isMongoId().withMessage("Invalid id"),

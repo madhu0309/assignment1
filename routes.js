@@ -31,6 +31,7 @@ router.put(
   userController.updateUser
 );
 router.post("/users/login", loginUserValidation, userController.loginUser);
+router.post("/users/logout", auth, userController.logoutUser);
 
 router.get("/groups", auth, groupController.groupsList);
 router.post("/groups", auth, groupController.createGroup);
