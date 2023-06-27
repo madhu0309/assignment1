@@ -9,6 +9,8 @@ const { MONGO_URL } = require("./config");
 const app = express();
 app.use(cookieParser())
 app.use(express.json());
+
+// routes
 app.use("/api", userRoutes);
 app.use("/api", groupRoutes);
 app.use("/api", messageRoutes);

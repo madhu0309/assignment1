@@ -7,7 +7,6 @@ const {
   deleteToken,
 } = require("../services/user.service");
 const { validationResult } = require("express-validator");
-const { JWT_SECTRET_KEY } = require("../config");
 const User = require("../models/User");
 
 const createUser = async (req, res) => {
