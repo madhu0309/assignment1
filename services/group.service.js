@@ -84,5 +84,5 @@ module.exports = {
   addGroup,
   removeGroup,
   addMember,
-  removeMember
+  removeMember,
 };

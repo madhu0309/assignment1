@@ -1,5 +1,4 @@
 const Message = require("../models/Message");
-const Group = require("../models/Group");
 
 const findMessages = async (userId, groupId) => {
   try {
