@@ -5,17 +5,17 @@ const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/groups", auth, groupController.groupsList);
-router.post("/groups", auth, groupController.createGroup);
-router.delete("/groups/:id", auth, groupController.deleteGroup);
+router.get("/", auth, groupController.groupsList);
+router.post("/", auth, groupController.createGroup);
+router.delete("/:id", auth, groupController.deleteGroup);
 router.patch(
-  "/groups/add-member/:id",
+  "/add-member/:id",
   auth,
   groupMemberValidation,
   groupController.addGroupMember
 );
 router.patch(
-  "/groups/remove-member/:id",
+  "/remove-member/:id",
   auth,
   groupMemberValidation,
   groupController.removeGroupMember

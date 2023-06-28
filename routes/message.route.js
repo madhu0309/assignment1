@@ -8,21 +8,21 @@ const messageController = require("../controllers/message.controller");
 const auth = require("../middlewares/auth");
 const router = express.Router();
 
-router.get("/messages/:groupId", auth, messageController.getMessages);
+router.get("/:groupId", auth, messageController.getMessages);
 router.post(
-  "/messages",
+  "",
   auth,
   createMessageValidation,
   messageController.createMessage
 );
 router.patch(
-  "/messages/like",
+  "/like",
   auth,
   likeMessageValidation,
   messageController.likeMessage
 );
 router.patch(
-  "/messages/unlike",
+  "/unlike",
   auth,
   unLikeMessageValidation,
   messageController.unLikeMessage

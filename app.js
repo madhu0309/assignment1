@@ -11,9 +11,9 @@ app.use(cookieParser())
 app.use(express.json());
 
 // routes
-app.use("/api", userRoutes);
-app.use("/api", groupRoutes);
-app.use("/api", messageRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/groups", groupRoutes);
+app.use("/api/messages", messageRoutes);
 
 // database connection
 mongoose.Promise=global.Promise;

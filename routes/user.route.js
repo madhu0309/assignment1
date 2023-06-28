@@ -11,20 +11,20 @@ const {
 const router = express.Router();
 
 router.post(
-  "/users",
+  "/",
   auth,
   isAdmin,
   createUserValidation,
   userController.createUser
 );
 router.put(
-  "/users",
+  "/",
   auth,
   isAdmin,
   updateUserValidation,
   userController.updateUser
 );
-router.post("/users/login", loginUserValidation, userController.loginUser);
-router.post("/users/logout", auth, userController.logoutUser);
+router.post("/login", loginUserValidation, userController.loginUser);
+router.post("/logout", auth, userController.logoutUser);
 
 module.exports = router;
