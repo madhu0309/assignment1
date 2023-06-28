@@ -42,6 +42,7 @@ const deleteGroup = async (req, res) => {
   try {
     const groupId = req.params.id;
     const group = await removeGroup(groupId);
+    
     if (!group) {
       res.status(404).json({
         success: false,
@@ -67,8 +68,10 @@ const addGroupMember = async (req, res) => {
         message: errors.array(),
       });
     }
+
     const { userId } = req.body;
     const groupId = req.params.id;
+
     const user = await findUserById(userId);
     if (!user) {
       return res.status(404).json({
@@ -76,6 +79,7 @@ const addGroupMember = async (req, res) => {
         message: "User not found",
       });
     }
+
     const group = await getGroup(groupId);
     if (!group) {
       return res.status(404).json({
@@ -83,6 +87,7 @@ const addGroupMember = async (req, res) => {
         message: "Group not found",
       });
     }
+
     await addMember(userId, groupId);
     res.status(200).json({ success: true });
   } catch (error) {
@@ -103,8 +108,10 @@ const removeGroupMember = async (req, res) => {
         message: errors.array(),
       });
     }
+
     const { userId } = req.body;
     const groupId = req.params.id;
+
     const user = await findUserById(userId);
     if (!user) {
       return res.status(404).json({
@@ -112,6 +119,7 @@ const removeGroupMember = async (req, res) => {
         message: "User not found",
       });
     }
+
     const group = await getGroup(groupId);
     if (!group) {
       return res.status(404).json({
@@ -119,6 +127,7 @@ const removeGroupMember = async (req, res) => {
         message: "Group not found",
       });
     }
+
     await removeMember(userId, groupId);
     res.status(200).json({ success: true });
   } catch (error) {

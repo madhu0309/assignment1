@@ -18,6 +18,7 @@ const createUser = async (req, res) => {
         message: errors.array(),
       });
     }
+    
     const { name, email, password } = req.body;
     const user = await findUser(email);
     if (user) {
@@ -49,6 +50,7 @@ const updateUser = async (req, res) => {
         message: errors.array(),
       });
     }
+
     const { email, name, password } = req.body;
     const result = await editUser(name, email, password);
     res.status(201).json({ success: true, data: result });
@@ -72,6 +74,14 @@ const getProfile = async (req, res) => {
 
 const loginUser = async (req, res) => {
   try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        success: false,
+        message: errors.array(),
+      });
+    }
+
     let token = req.cookies?.auth;
     if (token) {
       const user = await User.findByToken(token);
@@ -89,6 +99,7 @@ const loginUser = async (req, res) => {
           message: " Auth failed ,email not found",
         });
       }
+
       const isMatch = await user.comparepassword(req.body.password);
       if (!isMatch) {
         return res.json({
@@ -96,6 +107,7 @@ const loginUser = async (req, res) => {
           message: "password doesn't match",
         });
       }
+
       const userToken = await user.generateToken();
       return res.cookie("auth", userToken.token).json({
         token: userToken.token,

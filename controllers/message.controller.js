@@ -30,6 +30,7 @@ const createMessage = async (req, res) => {
         message: errors.array(),
       });
     }
+    
     const { message, groupId } = req.body;
     const userId = req.user?.id;
 
@@ -60,6 +61,7 @@ const likeMessage = async (req, res) => {
         message: errors.array(),
       });
     }
+
     const { messageId } = req.body;
     const userId = req.user?.id;
     const msg = await addLike(messageId, userId);
@@ -82,6 +84,7 @@ const unLikeMessage = async (req, res) => {
         message: errors.array(),
       });
     }
+
     const { messageId } = req.body;
     const userId = req.user?.id;
     const msg = await unLike(messageId, userId);
